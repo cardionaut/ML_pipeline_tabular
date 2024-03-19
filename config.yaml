@@ -1,8 +1,8 @@
 meta:
-  output_dir: /home/sebalzer/Documents/Projects/ATTRAS_Amyloidose
+  output_dir: /home/sebalzer/Documents/Projects/TAVI_outcome/Classification
   input_file: /home/sebalzer/Documents/Projects/TAVI_outcome/Classification/PaceMaker/PaceMaker_BWYR_HNLN.xlsx
   experiment: TAVI_outcome_PaceMaker # experiment name, results are stored in directory with this name
-  target_label: ATTR_Amyloidose # which column to use as label for exploration, feature reduction and analysis
+  target_label: label # which column to use as label for exploration, feature reduction and analysis
   learn_task: binary_classification # binary_classification, multi_classification, regression
 
   plot_format: png  # format in which plots are saved, e.g. png, pdf
@@ -20,7 +20,7 @@ meta:
 
 # specify the clean strategy
 inspection:
-  label_as_index: ATTRAS_Redcap # column string name or None
+  label_as_index: ID # column string name or None
   manual_clean: True # manual cleaning of data
   manual_strategy:
     drop_columns_regex: ["([A-Za-z]+(_[A-Za-z]+)+)_[0-9]+"] # remove single segment columns from ATTR dataset
@@ -32,7 +32,7 @@ impute:
 # data split definitions
 data_split:
   init_seed: 545
-  n_seeds: 100
+  n_seeds: 10
   n_bootstraps: 1
   test_frac: 0.3 # fraction of data to use for testing verification models
 
@@ -58,7 +58,7 @@ selection:
 
   jobs:
     [
-      [z_score_norm, hand_picked],
+      # [z_score_norm, hand_picked],
       [variance_threshold, z_score_norm, correlation, fr_forest],
       [variance_threshold, z_score_norm, correlation, univariate_ranking],
       [variance_threshold, z_score_norm, correlation, mrmr],
